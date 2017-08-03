@@ -1,10 +1,8 @@
 import React from 'react';
-import {
-  gql,
-  graphql
-} from 'react-apollo';
+import AddChannel from './AddChannel';
+import { gql, graphql } from 'react-apollo';
 
-const channelsListQuery = gql`
+export const channelsListQuery = gql`
    query ChannelsListQuery {
      channels {
        id
@@ -20,9 +18,14 @@ const channelsListQuery = gql`
     if (error) {
       return <p>{error.message}</p>;
     }
-    return <ul>
-      { channels.map( ch => <li key={ch.id}>{ch.name}</li> ) }
-    </ul>;
+    return (
+      <div>
+        <AddChannel />
+        <ul>
+          { channels.map( ch => <li key={ch.id}>{ch.name}</li> ) }
+        </ul>
+      </div>
+    );
   };
 
 const ChannelsListWithData = graphql(channelsListQuery)(ChannelsList);
